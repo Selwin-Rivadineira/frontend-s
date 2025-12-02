@@ -1,4 +1,8 @@
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/controlC`;
+// src/app/redux/services/api.ts
+import { API_URL } from './apiConfig'; // 👈 Importar
+
+// Corregido: Usamos API_URL + /controlC (sin agregar otro /api)
+const BASE_URL = `${API_URL}/controlC`;
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -33,7 +37,6 @@ class ApiClient {
       const data = await response.json();
       return { success: response.ok, data, message: data.message };
     } catch (error: any) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return { success: false, error: error.message };
     } finally {
       clearTimeout(id);
@@ -43,7 +46,7 @@ class ApiClient {
   get<T>(url: string) {
     return this.request<T>(url, { method: 'GET' });
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  
   post<T>(url: string, body: any) {
     return this.request<T>(url, {
       method: 'POST',
