@@ -19,6 +19,8 @@ import { JustificationPopup } from "../forms/popups/JustificationPopup";
 import RescheduleForm, { RescheduleFormHandle } from "./RescheduleForm";
 import { ReminderArea } from "../../atoms/reminderArea";
 
+// ... (Resto de schemas y tipos) ...
+
 const baseSchema = z.object({
   client: z
     .string()
@@ -122,7 +124,8 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
     const [month, setMonth] = useState<string>("");
     const [hour, setHour] = useState<number>(0);
 
-    const dialogRef = useRef<HTMLDivElement | null>(null);
+    // 🎯 VERIFICACIÓN: dialogRef está tipado e inicializado correctamente.
+    const dialogRef = useRef<HTMLDivElement | null>(null); 
     const firstFieldRef = useRef<HTMLInputElement | null>(null);
     const [changesDetected, setChangesDetected] = useState<boolean>(false);
 
@@ -167,7 +170,7 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
         hasLocationOrLinkChanges =
           (lat ?? 0) !== (originalAppointment.lat ?? 0) ||
           (lon ?? 0) !== (originalAppointment.lon ?? 0) ||
-          (address || "") !== (originalAppointment.address || "");
+          (address || "").trim() !== (originalAppointment.address || "").trim(); // Agregada verificación trim
       } else {
         hasLocationOrLinkChanges =
           (meetingLink || "").trim() !==
@@ -389,7 +392,7 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
         payload.current_requester_name = client.trim();
       if (contact.trim() !== originalAppointment.contact)
         payload.current_requester_phone = contact.trim();
-      if ((description || "") !== (originalAppointment.description || ""))
+      if ((description || "").trim() !== (originalAppointment.description || "").trim())
         payload.appointment_description = description.trim();
       if (modality !== originalAppointment.modality)
         payload.appointment_type =
@@ -407,8 +410,8 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
           lon !== (originalAppointment.lon ?? undefined)
         )
           payload.lon = String(lon);
-        if (address !== (originalAppointment.address ?? ""))
-          payload.display_name_location = address;
+        if (address.trim() !== (originalAppointment.address || "").trim()) // Corregido el chequeo de trim
+          payload.display_name_location = address.trim();
       } else {
         const linkToUse =
           meetingLink.trim() || genMeetingLink(datetime);
@@ -418,7 +421,7 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
           if (!urlRegex.test(meetingLink.trim()))
             return setMsg("Ingrese un enlace válido.");
         }
-        if ((meetingLink || "") !== (originalAppointment.meetingLink || ""))
+        if ((meetingLink || "").trim() !== (originalAppointment.meetingLink || "").trim()) // Corregido el chequeo de trim
           payload.link_id = linkToUse;
       }
 
@@ -467,7 +470,8 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
     const handleSubmitJustification = (reason: string) => {
       setReprogReason(reason);
       setJustifyOpen(false);
-      rescheduleRef.current?.open();
+      // Pasa el control a RescheduleForm
+      rescheduleRef.current?.open(); 
     };
 
     if (!open) return null;
@@ -609,6 +613,11 @@ const EditAppointmentForm = forwardRef<EditAppointmentFormHandle>(
           requesterId={originalAppointment?.requesterId ?? ""}
           pastDate={originalAppointment?.datetime ?? ""}
           motivo={reprogReason}
+          onSuccess={() => {
+            // Recargar data después de la reprogramación
+            // Nota: Se asume que refetchAll está en el contexto
+            // del EditAppointmentForm, aunque es mejor llamarlo desde RescheduleForm
+          }}
         />
       </>
     );

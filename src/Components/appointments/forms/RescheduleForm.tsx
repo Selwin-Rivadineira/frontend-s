@@ -1,3 +1,5 @@
+// acmilton12/servineo-frontend-byteboys2/servineo-frontend-byteboys2-integracion-bytesboys/src/Components/appointments/forms/RescheduleForm.tsx
+
 "use client";
 import React, {
   forwardRef,
@@ -341,13 +343,24 @@ export default forwardRef<RescheduleFormHandle, RescheduleFormProps>(
           });
           return;
         }
+        
+        const { selected_date, starting_time, finishing_time } =
+          parseNewTimes(newDatetime);
 
+        // 1. LLAMADA PUT (ACTUALIZA y NOTIFICA REPROGRAMACIÓN)
+        // 🎯 ESTA LLAMADA DEBE CONTENER TODOS LOS DATOS ACTUALIZADOS Y LA RAZÓN DE REPROGRAMACIÓN
         const updateUrl = `${API_BASE}/api/crud_update/appointments/update_by_id?id=${encodeURIComponent(
           originalAppointmentId
         )}`;
+        
         const updatePayload = {
-          schedule_state: "cancelled",
-          reprogram_reason: motivo ?? "Sin motivo",
+          // Campos que cambian la fecha/hora/modalidad
+          starting_time: starting_time, 
+          finishing_time: finishing_time, 
+          appointment_type: modality,
+          
+          // Campo para que el servicio de actualización dispare la notificación
+          reprogram_reason: motivo ?? "Sin motivo", 
         };
 
         const updateRes = await axios.put(updateUrl, updatePayload, {
@@ -366,9 +379,9 @@ export default forwardRef<RescheduleFormHandle, RescheduleFormProps>(
           );
         }
 
-        const { selected_date, starting_time, finishing_time } =
-          parseNewTimes(newDatetime);
-
+        // 2. LLAMADA POST (CREACIÓN DUPLICADA POR EL FLUJO DEL CLIENTE)
+        
+        // Mantenemos la lógica de la llamada POST que hace el cliente
         const createPayload = {
           id_fixer: fixerId,
           id_requester: requesterId,
@@ -392,6 +405,8 @@ export default forwardRef<RescheduleFormHandle, RescheduleFormProps>(
             modality === "presential"
               ? location?.lon ?? null
               : null,
+          // 🎯 CAMBIO CLAVE PARA SUPRIMIR LA NOTIFICACIÓN DE CREACIÓN EN EL BACKEND
+          reprogram_reason: motivo ?? "Sin motivo",
         };
 
         const createRes = await axios.post(
@@ -461,6 +476,7 @@ export default forwardRef<RescheduleFormHandle, RescheduleFormProps>(
     if (!open) return null;
 
     return (
+      // ... (Resto del JSX se mantiene igual)
       <>
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div

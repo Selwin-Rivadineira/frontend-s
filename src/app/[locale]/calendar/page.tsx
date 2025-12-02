@@ -15,8 +15,8 @@ import { AppointmentsProvider } from '@/app/lib/utils/contexts/AppointmentsConte
 import { AppointmentsStatusProvider } from '@/app/lib/utils/contexts/DayliViewRequesterContext';
 
 //const fixer_id = "68ef1993be38c7f1c3c2c777";
-const fixer_id = '68e87a9cdae3b73d8040102f';
-const requester_id = "68ec99ddf39c7c140f42fcfa";
+const fixer_id = '68f559f3f5c96a8e785049b2';
+const requester_id = "68f8349280f67ee3b2d3bea7";
 
 //segundo
 //const requester_id = '68f518e5ef03787169f81b22';
