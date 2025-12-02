@@ -12,7 +12,7 @@ export async function getSchedulesCont(
 ): Promise<Record<string, Record<string, number>>> {
   try {
     const response = await axios.get<AppointmentsResponse>(
-      'https://servineo-backend-lorem.onrender.com/api/crud_read/schedules/get_number_of_appointments',
+      'https://backend-s-8.onrender.com/api/crud_read/schedules/get_number_of_appointments',
       {
         params: {
           fixer_id,

@@ -50,7 +50,7 @@ export const CancelDaysAppointments: React.FC<CancelDaysAppointmentsProps> = ({
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [totalAppointmentsToCancel, setTotalAppointmentsToCancel] = useState(0);
 
-  const API_BASE = `${process.env.NEXT_PUBLIC_BACKEND || 'https://servineo-backend-lorem.onrender.com'}/api`;
+  const API_BASE = `${process.env.NEXT_PUBLIC_BACKEND || 'https://backend-s-8.onrender.com'}/api`;
 
   const months = [
     'Enero',

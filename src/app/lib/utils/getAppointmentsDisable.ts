@@ -18,7 +18,7 @@ interface ApiAvailability {
 export async function getAppointmentsDisable(fixerId: string): Promise<Days> {
   try {
     const res = await axios.get<ApiAvailability>(
-      'https://servineo-backend-lorem.onrender.com/api/crud_read/appointments/get_fixer_availability',
+      'https://backend-s-8.onrender.com/api/crud_read/appointments/get_fixer_availability',
       {
         params: {
           fixer_id: fixerId,

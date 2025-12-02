@@ -90,7 +90,7 @@ const appointmentSchema = z.discriminatedUnion("modality", [
 
 const API_BASE =
   process.env.NEXT_PUBLIC_BACKEND ||
-  "https://servineo-backend-lorem.onrender.com";
+  "https://backend-s-8.onrender.com";
 
 function ymd(iso: string) {
   const d = new Date(iso);

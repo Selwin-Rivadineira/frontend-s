@@ -21,7 +21,7 @@ export function useDevices(userId?: string) {
     if (!userId) return;
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:8000/api/controlC/${userId}`);
+      const res = await fetch(`https://backend-s-8.onrender.com/api/controlC/${userId}`);
       const data = await res.json();
 
       if (res.ok) {
@@ -41,7 +41,7 @@ export function useDevices(userId?: string) {
     if (!userId || !currentDeviceId) return { success: false, message: 'Datos insuficientes' };
 
     try {
-      const res = await fetch(`http://localhost:8000/api/controlC/${userId}`, {
+      const res = await fetch(`https://backend-s-8.onrender.com/api/controlC/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentDeviceId }),

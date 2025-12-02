@@ -37,7 +37,7 @@ export async function getAppointmentsByDate(fixerId: string, date: string): Prom
     try {
 
         const response = await axios.get<ApiResponse>(
-            'https://servineo-backend-lorem.onrender.com/api/crud_read/appointments/get_appointments_date',
+            'https://backend-s-8.onrender.com/api/crud_read/appointments/get_appointments_date',
             {
                 params: {
                     id_fixer: fixerId,

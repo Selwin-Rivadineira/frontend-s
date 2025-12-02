@@ -12,7 +12,7 @@ import AppointmentDetailsForm, {
     EditAppointmentFormHandle as DetailsFormHandle,
 } from '@/Components/appointments/forms/AppointmentDetails';
 import { useAppointmentsContext } from '@/app/lib/utils/contexts/AppointmentsContext/AppoinmentsContext';
-const API_BASE = 'https://servineo-backend-lorem.onrender.com';
+const API_BASE = 'https://backend-s-8.onrender.com';
 
 interface HourCellProps {
     date: Date;

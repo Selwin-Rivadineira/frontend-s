@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-s-8.onrender.com';
 const ULTIMO_CAMBIO_BASE = '/api/controlC/ultimo-cambio';
 
 export interface LastPasswordChangeResponse {

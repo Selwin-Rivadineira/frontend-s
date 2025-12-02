@@ -18,7 +18,7 @@ export function useDailyAppointments(): Ctx {
   return ctx;
 }
 
-const API_BASE = 'https://servineo-backend-lorem.onrender.com';
+const API_BASE = 'https://backend-s-8.onrender.com';
 const pad2 = (n: number) => String(n).padStart(2, '0');
 const ymdLocal = (d: Date) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 const sameLocalDay = (a: Date, b: Date) =>

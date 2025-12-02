@@ -35,7 +35,7 @@ export async function getAppointmentsByHour(
 ): Promise<Appointment[]> {
   try {
     const response = await axios.get<ApiResponse>(
-      'https://servineo-backend-lorem.onrender.com/api/crud_read/appointments/get_appointment_by_fixer_hour',
+      'https://backend-s-8.onrender.com/api/crud_read/appointments/get_appointment_by_fixer_hour',
       {
         params: {
           fixer_id,
