@@ -1,4 +1,7 @@
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/controlC`;
+import { API_URL } from '../apiConfig'; // 👈 Importar desde tu config
+
+// Corregido: API_URL ya trae ".../api", así que solo agregamos "/controlC"
+const BASE_URL = `${API_URL}/controlC`;
 
 export interface User {
   email: string;
@@ -117,7 +120,7 @@ export async function enviarFotoPerfil(usuarioId: string, archivo: File): Promis
   };
 
   const base64Foto = await fileToBase64(archivo);
-  const url = `${BASE_URL}/fotoPerfil/usuarios/foto`;
+  const url = `${BASE_URL}/fotoPerfil/usuarios/foto`; // Revisa si esta ruta existe en tu backend
 
   const res = await fetch(url, {
     method: 'PUT',
