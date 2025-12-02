@@ -1,16 +1,11 @@
 // src/app/redux/services/baseApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { API_URL } from './apiConfig'; // 👈 Importamos la URL correcta
 
-// Force /api to use Next.js proxy
-const API_URL = '/api';
-
-// Log para debugging (solo en desarrollo)
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-  console.log('🔗 API URL configurada:', API_URL);
-}
+// Ya no definimos API_URL aquí localmente
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: API_URL,
+  baseUrl: API_URL, // 👈 Usamos la constante importada
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('servineo_token');
     if (token) {
@@ -19,7 +14,7 @@ export const baseQuery = fetchBaseQuery({
     headers.set('Content-Type', 'application/json');
     return headers;
   },
-  credentials: 'include',
+  // credentials: 'include', // Opcional: coméntalo si tienes problemas de CORS al inicio
 });
 
 export interface ApiError {
@@ -34,7 +29,6 @@ export const isApiError = (error: unknown): error is ApiError => {
   return typeof error === 'object' && error !== null && 'status' in error && 'data' in error;
 };
 
-// Base API with no endpoints
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery,
